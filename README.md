@@ -22,12 +22,27 @@ A simple backend application built with Node.js and Express to manage recipes. T
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/recipe-app.git
-cd recipe-app
+git clone https://github.com/olamide-soyoye/recipe-app-backend.git
 
-## Install Dependencies
+cd recipe-app-backend
+```
+### Install Dependencies
 
 ```bash
 npm install
+```
 
-##
+### Run Locally
+
+```bash
+node server.js #to serve
+nodemon server.js #Applicable for development mode
+```
+### Run Tests
+```bash
+npm test
+```
+### Deployment URL
+```bash
+ https://recipe-app-backend-78nx.onrender.com/ 
+```
