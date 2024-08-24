@@ -100,7 +100,7 @@ exports.editRecipe = async (id, updateData) => {
             await writeRecipesToFile(recipes);
             return updatedRecipe;
         } else {
-            return null; // Recipe not found
+            return null; // If recipe not found
         }
     } catch (err) {
         throw new Error('Error updating recipe');

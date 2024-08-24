@@ -28,7 +28,7 @@ exports.getRecipeById = async (req, res) => {
     try {
         const recipe = await fetchRecipeById(req.params.id);
         if (recipe) {
-            res.status(200).json(recipe);
+            res.status(200).json({message: 'Success', data:recipe });
         } else {
             res.status(404).json({ message: 'Recipe not found' });
         }
@@ -45,10 +45,10 @@ exports.createRecipe = async (req, res) => {
     }
 
     try {
-        const { title, instructions, ingredients, image } = req.body;
-        // Pass the recipe data to the service
+        const { title, instructions, ingredients } = req.body;
+        const image = req.file ? req.file.path : null;
         const newRecipe = await storeRecipe({ title, instructions, ingredients, image });
-        res.status(201).json(newRecipe);
+        res.status(201).json({message: 'Success', data:newRecipe });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -63,10 +63,11 @@ exports.updateRecipe = async (req, res) => {
 
     try {
         const recipeId = parseInt(req.params.id);
-        const { title, instructions, ingredients, image } = req.body;
+        const { title, instructions, ingredients } = req.body;
+        const image = req.file ? req.file.path : null;
         const updatedRecipe = await editRecipe(recipeId, { title, instructions, ingredients, image });
         if (updatedRecipe) {
-            res.json(updatedRecipe);
+            res.status(200).json({message: 'Success', data:updatedRecipe });
         } else {
             res.status(404).json({ message: 'Recipe not found' });
         }

@@ -11,13 +11,10 @@
   },
   {
     "id": 2,
-    "title": "epppfo",
-    "instructions": "A delicious pasta dish",
-    "ingredients": [
-      "pasta",
-      "tomato sauce"
-    ],
-    "image": null
+    "title": "Fried Rice",
+    "instructions": "Get all things needed correctly",
+    "ingredients": "[\"pasta\", \"tomato sauce\"]",
+    "image": "C:\\Users\\HP\\Desktop\\Test\\recipe-app-backend\\images\\1724497252475.png"
   },
   {
     "id": 3,
@@ -718,16 +715,6 @@
     "image": "image-url"
   },
   {
-    "id": 80,
-    "title": "New Recipe",
-    "instructions": "Mix ingredients and cook.",
-    "ingredients": [
-      "ingredient1",
-      "ingredient2"
-    ],
-    "image": "image-url"
-  },
-  {
     "id": 81,
     "title": "New Recipe",
     "instructions": "Mix ingredients and cook.",
@@ -746,5 +733,29 @@
       "ingredient2"
     ],
     "image": "image-url"
+  },
+  {
+    "id": 83,
+    "title": "epppfo",
+    "instructions": "A delicious pasta dish",
+    "ingredients": [
+      "pasta",
+      "tomato sauce"
+    ],
+    "image": null
+  },
+  {
+    "id": 84,
+    "title": "Jollof Rice",
+    "instructions": "Put your pot on the fire",
+    "ingredients": "[\"pasta\", \"tomato sauce\"]",
+    "image": "C:\\Users\\HP\\Desktop\\Test\\recipe-app-backend\\images\\1724495992253.jpg"
+  },
+  {
+    "id": 85,
+    "title": "Coconut Rice",
+    "instructions": "Put your pot on the fire",
+    "ingredients": "[\"Rice\", \"tomato sauce\"]",
+    "image": "C:\\Users\\HP\\Desktop\\Test\\recipe-app-backend\\images\\1724497207511.jpg"
   }
 ]

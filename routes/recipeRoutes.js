@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const recipeController = require('../Controllers/recipeController');
-const validationMiddleware = require('../middlewares/validationMiddleware');
-
+const upload = require('../config/multer'); 
+const { validateRecipe, checkValidation } = require('../middlewares/validationMiddleware');
 /**
  * @openapi
  * /recipes:
@@ -124,7 +124,12 @@ router.get('/:id', recipeController.getRecipeById);
  *       400:
  *         description: Invalid input
  */
-router.post('/', validationMiddleware.validateRecipe, recipeController.createRecipe);
+router.post('/', 
+    upload.single('image'), 
+    validateRecipe,
+    checkValidation,
+    recipeController.createRecipe
+); 
 
 /**
  * @openapi
@@ -183,8 +188,13 @@ router.post('/', validationMiddleware.validateRecipe, recipeController.createRec
  *       404:
  *         description: Recipe not found
  */
-router.put('/:id', validationMiddleware.validateRecipe, recipeController.updateRecipe);
-
+router.put(
+    '/:id', 
+    upload.single('image'), 
+    validateRecipe,
+    checkValidation,
+    recipeController.updateRecipe
+);
 /**
  * @openapi
  * /recipes/{id}:
