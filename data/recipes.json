@@ -10,20 +10,6 @@
     "image": null
   },
   {
-    "id": 2,
-    "title": "Fried Rice",
-    "instructions": "Get all things needed correctly",
-    "ingredients": "[\"pasta\", \"tomato sauce\"]",
-    "image": "C:\\Users\\HP\\Desktop\\Test\\recipe-app-backend\\images\\1724497252475.png"
-  },
-  {
-    "id": 3,
-    "title": "Pasta",
-    "instructions": "Cook it",
-    "ingredients": [],
-    "image": null
-  },
-  {
     "id": 4,
     "title": "Pasta",
     "instructions": "Cook it",
@@ -757,5 +743,469 @@
     "instructions": "Put your pot on the fire",
     "ingredients": "[\"Rice\", \"tomato sauce\"]",
     "image": "C:\\Users\\HP\\Desktop\\Test\\recipe-app-backend\\images\\1724497207511.jpg"
+  },
+  {
+    "id": 86,
+    "title": "Coconut Rice",
+    "instructions": "Put your pot on the fire",
+    "ingredients": "[\"Rice\", \"tomato sauce\"]",
+    "image": "https://res.cloudinary.com/tamss/image/upload/v1724610003/lxtggeyuu4mihsk7qq0s.jpg"
+  },
+  {
+    "id": 87,
+    "title": "Coconut Rice",
+    "instructions": "Put your pot on the fire",
+    "ingredients": "[\"Rice\", \"tomato sauce\"]",
+    "image": "https://res.cloudinary.com/tamss/image/upload/v1724610157/wdj2yfdbpupg0rkyh0wf.jpg"
+  },
+  {
+    "id": 88,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 89,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 90,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 91,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 92,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 93,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 94,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 95,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 96,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 97,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 98,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 99,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 100,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 101,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 102,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 103,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 104,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 105,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 106,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 107,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 108,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 109,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 110,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 111,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 112,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 113,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 114,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 115,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 116,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 117,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 118,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 119,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 120,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 121,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 122,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 123,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 124,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 125,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 126,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 127,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 128,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 129,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 130,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 131,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
+  },
+  {
+    "id": 132,
+    "title": "New Recipe",
+    "instructions": "Mix ingredients and cook.",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2"
+    ],
+    "image": "image-url"
   }
 ]

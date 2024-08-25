@@ -45,11 +45,7 @@ exports.fetchRecipes = async (req, res) => {
         };
 
     } catch (err) {
-        throw new Error('Failed to fetch recipes');
-        // console.error('Error fetching recipes:', err);
-        if (!res.headersSent) {
-            // return res.status(500).json({ error: 'Error fetching recipes' });
-        }
+        throw new Error('Failed to fetch recipes'); 
     }
 };
 
@@ -100,7 +96,7 @@ exports.editRecipe = async (id, updateData) => {
             await writeRecipesToFile(recipes);
             return updatedRecipe;
         } else {
-            return null; // If recipe not found
+            return null;
         }
     } catch (err) {
         throw new Error('Error updating recipe');

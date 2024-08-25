@@ -6,14 +6,23 @@ const app = express();
 const recipeController = require('../Controllers/recipeController');
 const fileUtils = require('../utils/fileUtils');
 
-//route
+const getRecipesFromFile = async () => {
+    try {
+        const recipes = await fileUtils.readRecipesFromFile();
+        return recipes;
+    } catch (err) {
+        throw new Error('Error reading recipes from file');
+    }
+};
+
 app.delete('/recipes/:id', recipeController.deleteRecipe);
 
-describe('Recipe Controller - deleteRecipe', () => {
-    let request;
+describe('Recipe Controller - deleteRecipe', () => { 
+    let request, recipes;
 
-    before(() => {
+    before(async () => {
         request = supertest(app);
+        recipes = await getRecipesFromFile();
     });
 
     afterEach(() => {
@@ -27,13 +36,12 @@ describe('Recipe Controller - deleteRecipe', () => {
         ];
 
         sinon.stub(fileUtils, 'readRecipesFromFile').resolves(mockRecipes);
-        const writeStub = sinon.stub(fileUtils, 'writeRecipesToFile').resolves();
+        sinon.stub(fileUtils, 'writeRecipesToFile').resolves();
 
-        const response = await request.delete('/recipes/75');
-
-        // Assertions
+        const lastRecipeId = recipes[recipes.length - 1].id;
+        const response = await request.delete(`/recipes/${lastRecipeId}`);
+        
         expect(response.status).to.equal(204);
-        // expect(response.body).to.deep.equal({ message: 'Deleted successfully' });
 
     });
 
@@ -42,18 +50,11 @@ describe('Recipe Controller - deleteRecipe', () => {
             { id: 1, title: 'Recipe 1', instructions: '...', ingredients: [], image: null }
         ];
 
-        // Stub file operations
         sinon.stub(fileUtils, 'readRecipesFromFile').resolves(mockRecipes);
-        const writeStub = sinon.stub(fileUtils, 'writeRecipesToFile');
+        sinon.stub(fileUtils, 'writeRecipesToFile');
 
-        // Send delete request for a non-existent recipe
         const response = await request.delete('/recipes/999');
 
-        // Assertions
-        expect(response.status).to.equal(404);
-        // expect(response.body).to.deep.equal({ message: 'Recipe not found' });
-
-        // Verify that writeRecipesToFile was not called
-        // expect(writeStub.notCalled).to.be.true;
+        expect(response.status).to.equal(404); 
     }); 
 });

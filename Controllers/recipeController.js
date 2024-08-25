@@ -80,6 +80,11 @@ exports.updateRecipe = async (req, res) => {
 exports.deleteRecipe = async (req, res) => {
     try {
         const index = parseInt(req.params.id);
+
+        if (!Number.isInteger(index)) {
+            return res.status(400).json({ message: 'Invalid recipe ID' });
+        }
+        
         const recipes = await getRecipesFromFile();
         const recipeIndex = recipes.findIndex(r => r.id === index);
         if (recipeIndex !== -1) {

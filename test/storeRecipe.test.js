@@ -23,7 +23,7 @@ describe('Recipe Service - storeRecipe', () => {
     
         sinon.stub(fileUtils, 'readRecipesFromFile').resolves(mockRecipes);
     
-        const writeStub = sinon.stub(fileUtils, 'writeRecipesToFile').resolves();
+        sinon.stub(fileUtils, 'writeRecipesToFile').resolves();
     
         const result = await recipeService.storeRecipe(newRecipeData);
     

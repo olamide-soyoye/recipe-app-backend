@@ -34,7 +34,7 @@ describe('Recipe Service - fetchRecipeById', () => {
         ];
         sinon.stub(fileUtils, 'readRecipesFromFile').resolves(mockRecipes);
         
-        const result = await recipeService.fetchRecipeById(100);
+        const result = await recipeService.fetchRecipeById(1000);
         
         expect(result).to.be.null;
     });

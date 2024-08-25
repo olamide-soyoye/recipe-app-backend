@@ -3,9 +3,24 @@ const { expect } = require('chai');
 const recipeService = require('../Services/recipeService');
 const fileUtils = require('../utils/fileUtils');
 
+const getRecipesFromFile = async () => {
+    try {
+        const recipes = await fileUtils.readRecipesFromFile();
+        return recipes;
+    } catch (err) {
+        throw new Error('Error reading recipes from file');
+    }
+};
+
 describe('Recipe Service - editRecipe', () => {
     afterEach(() => {
         sinon.restore();
+    });
+
+    let recipes;
+
+    before(async () => {
+        recipes = await getRecipesFromFile();
     });
 
     it('should update an existing recipe and return it', async () => {
@@ -26,9 +41,9 @@ describe('Recipe Service - editRecipe', () => {
 
         sinon.stub(fileUtils, 'readRecipesFromFile').resolves(mockRecipes);
 
-        const writeStub = sinon.stub(fileUtils, 'writeRecipesToFile').resolves();
-
-        const result = await recipeService.editRecipe(1, updatedData);
+        sinon.stub(fileUtils, 'writeRecipesToFile').resolves();
+        const firstRecipeId = recipes[0].id;
+        const result = await recipeService.editRecipe(firstRecipeId, updatedData);
 
         expect(result).to.have.property('id', 1);
         expect(result).to.include(updatedData);
