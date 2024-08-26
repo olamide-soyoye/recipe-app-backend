@@ -2,6 +2,8 @@
 
 A simple backend application built with Node.js and Express to manage recipes. This API supports CRUD operations, image uploads, and basic validation. The recipes are stored in-memory and persist in a JSON file. Image files are stored locally.
 
+It is worthy of note that this project adapts MVC design pattern. There is an extra layer called service used to cater for business logic hereby returning response to controller.
+
 ## Features
 
 - Fetch a paginated list of recipes
