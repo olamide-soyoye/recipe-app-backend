@@ -36,7 +36,7 @@ describe('Recipe Service - editRecipe', () => {
                 "pasta",
                 "tomato sauce"
             ],
-            image: null
+            image: "https://res.cloudinary.com/tamss/image/upload/v1724742626/mjjy7vm13iqhct1a8awm.jpg"
         };
 
         sinon.stub(fileUtils, 'readRecipesFromFile').resolves(mockRecipes);

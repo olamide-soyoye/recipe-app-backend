@@ -18,7 +18,7 @@ describe('Recipe Service - storeRecipe', () => {
             title: 'Grilled Basil Chicken',
             instructions: 'Place chicken breasts in a shallow dish; orange quote icon do not rinse raw poultry. Cover with marinade. Cover dish. Refrigerate about 1 hour, turning occasionally. orange quote icon Wash dish after touching raw poultry.',
             ingredients: ['2 tbsp olive oil', '1 garlic clove, minced'],
-            image: 'null'
+            image: 'https://res.cloudinary.com/tamss/image/upload/v1724690862/bleotma2aul27klejhdp.jpg'
         };
     
         sinon.stub(fileUtils, 'readRecipesFromFile').resolves(mockRecipes);
@@ -38,7 +38,7 @@ describe('Recipe Service - storeRecipe', () => {
             title: 'Moroccan Chicken with Ehh-plant-Zucchini Ragout',
             instructions: 'Add leg quarters to pan, skin-side down. orange quote icon Wash hands with soap and water after handling uncooked chicken. Brown chicken, turning once, 8 to 10 minutes per side. Remove chicken to plate and drain off all but 2 tablespoons oil. Add eggplant to hot pan and cook, stirring, 5 minutes. Add remaining tablespoon olive oil, along with zucchini, onion and garlic. Cook 5 minutes, stirring occasionally',
             ingredients: ['3 tbsp olive oil, divided', '1 tsp salt, divided','1 tsp freshly ground black pepper, divided'],
-            image: 'image-url'
+            image: 'https://res.cloudinary.com/tamss/image/upload/v1724742626/mjjy7vm13iqhct1a8awm.jpg'
         };
 
         sinon.stub(fileUtils, 'readRecipesFromFile').throws(new Error('Test error'));

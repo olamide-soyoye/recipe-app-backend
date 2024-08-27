@@ -8,7 +8,7 @@
       "1 tsp salt, divided",
       "1 tsp freshly ground black pepper, divided"
     ],
-    "image": "image-url"
+    "image": "https://res.cloudinary.com/tamss/image/upload/v1724742626/mjjy7vm13iqhct1a8awm.jpg"
   },
   {
     "id": 2,
@@ -18,7 +18,7 @@
       "2 tbsp olive oil",
       "1 garlic clove, minced"
     ],
-    "image": "null"
+    "image": "https://res.cloudinary.com/tamss/image/upload/v1724742638/txq5xvyaazbhqlrg1esd.jpg"
   },
   {
     "id": 3,
@@ -28,6 +28,6 @@
       "2 tbsp olive oil",
       "1 garlic clove, minced"
     ],
-    "image": "null"
+    "image": "https://res.cloudinary.com/tamss/image/upload/v1724690862/bleotma2aul27klejhdp.jpg"
   }
 ]
