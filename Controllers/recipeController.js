@@ -63,11 +63,20 @@ exports.updateRecipe = async (req, res) => {
 
     try {
         const recipeId = parseInt(req.params.id);
-        const { title, instructions, ingredients } = req.body;
-        const image = req.file ? req.file.path : null;
-        const updatedRecipe = await editRecipe(recipeId, { title, instructions, ingredients, image });
+        const { title, instructions, ingredients, image } = req.body;
+        
+        let imagePath = null;
+
+        if (req.file) {
+            imagePath = req.file.path;
+        } else if (image) {
+            imagePath = image;
+        }
+        
+        const updatedRecipe = await editRecipe(recipeId, { title, instructions, ingredients, image: imagePath });
+        
         if (updatedRecipe) {
-            res.status(200).json({message: 'Success', data:updatedRecipe });
+            res.status(200).json({ message: 'Success', data: updatedRecipe });
         } else {
             res.status(404).json({ message: 'Recipe not found' });
         }
@@ -75,6 +84,7 @@ exports.updateRecipe = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
 
 // Delete a recipe
 exports.deleteRecipe = async (req, res) => {
