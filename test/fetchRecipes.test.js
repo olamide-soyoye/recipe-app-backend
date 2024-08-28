@@ -1,35 +1,37 @@
+const request = require('supertest');
+const express = require('express');
 const { expect } = require('chai');
 const sinon = require('sinon');
+const { getRecipes } = require('../Controllers/recipeController'); 
 const recipeService = require('../Services/recipeService');
-const fileUtils = require('../utils/fileUtils');
 
-describe('Recipe Service - fetchRecipes', () => {
-    afterEach(() => {
-        sinon.restore(); 
+const app = express();
+app.use(express.json());
+app.get('/recipes', getRecipes);
+
+describe('GET /recipes', function() {
+    let fetchRecipesStub;
+
+    beforeEach(function() {
+        fetchRecipesStub = sinon.stub(recipeService, 'fetchRecipes');
     });
 
-    it('should fetch paginated recipes correctly', async () => {
-        const mockRecipes = [
-            { id: 1, title: 'Recipe 1' },
-            { id: 2, title: 'Recipe 2' }
-        ];
-        sinon.stub(fileUtils, 'readRecipesFromFile').resolves(mockRecipes);
-    
-        const req = { query: { page: '1', limit: '2' } };
-        const result = await recipeService.fetchRecipes(req);
-    
-        expect(result.data).to.have.lengthOf(2); 
-    });
-    
-
-    it('should return an error if page or limit is less than 1', async () => {
-        const req = { query: { page: '0', limit: '2' } };
-        const res = { status: sinon.stub().returnsThis(), json: sinon.stub() };
-
-        await recipeService.fetchRecipes(req, res);
-
-        expect(res.status.calledWith(400)).to.be.true;
-        expect(res.json.calledWith({ error: 'Page and limit must be greater than 0' })).to.be.true;
+    afterEach(function() {
+        fetchRecipesStub.restore();
     });
 
+    it('should return paginated recipe data successfully', async function() {
+        fetchRecipesStub.resolves({
+            data: [{ id: 1, name: 'Recipe 1' }],
+            pagination: { page: 1, limit: 10, total: 1 }
+        });
+
+        const response = await request(app).get('/recipes').query({ page: 1, limit: 10 });
+        expect(response.status).to.equal(200);
+    });
+
+    it('should handle page and limit validation errors', async function() {
+        const response = await request(app).get('/recipes').query({ page: 0, limit: 10 });
+        expect(response.status).to.equal(400);
+    }); 
 });

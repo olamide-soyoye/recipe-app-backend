@@ -33,10 +33,10 @@ describe('Recipe Service - editRecipe', () => {
             title: 'Updated Recipe 1',
             instructions: 'New instructions',
             ingredients: [
-                "pasta",
-                "tomato sauce"
+                'pasta',
+                'tomato sauce'
             ],
-            image: "https://res.cloudinary.com/tamss/image/upload/v1724742626/mjjy7vm13iqhct1a8awm.jpg"
+            image: 'https://res.cloudinary.com/tamss/image/upload/v1724742626/mjjy7vm13iqhct1a8awm.jpg'
         };
 
         sinon.stub(fileUtils, 'readRecipesFromFile').resolves(mockRecipes);

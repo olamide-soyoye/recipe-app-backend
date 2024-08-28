@@ -1,4 +1,3 @@
-const { body, validationResult } = require('express-validator');
 const { readRecipesFromFile, writeRecipesToFile } = require('../utils/fileUtils');
 
 // Helper function to get the latest recipes from the file
@@ -12,29 +11,21 @@ const getRecipesFromFile = async () => {
 };
 
 // Fetch paginated list of recipes
-exports.fetchRecipes = async (req, res) => {
+exports.fetchRecipes = async (pageNumber, pageSize) => {
     try {
-        const { page = 1, limit = 10 } = req.query||{};
-        const pageNumber = parseInt(page, 10);
-        const pageSize = parseInt(limit, 10);
-
-        if (pageNumber < 1 || pageSize < 1) {
-            return res.status(400).json({ error: 'Page and limit must be greater than 0' });
-        }
-
         const recipes = await getRecipesFromFile();
         const totalRecipes = recipes.length;
         const totalPages = Math.ceil(totalRecipes / pageSize);
         const startIndex = (pageNumber - 1) * pageSize;
         const endIndex = Math.min(startIndex + pageSize, totalRecipes);
 
-        if (pageNumber > totalPages) {
-            return res.status(404).json({ error: 'Page not found' });
+        if (pageNumber > totalPages || pageNumber < 1) {
+            throw { statusCode: 404, message: 'Page not found' };
         }
 
         const paginatedRecipes = recipes.slice(startIndex, endIndex);
 
-        return{
+        return {
             data: paginatedRecipes,
             pagination: {
                 currentPage: pageNumber,
@@ -45,7 +36,7 @@ exports.fetchRecipes = async (req, res) => {
         };
 
     } catch (err) {
-        throw new Error('Failed to fetch recipes'); 
+        throw { statusCode: 500, message: 'Failed to fetch recipes' };
     }
 };
 
