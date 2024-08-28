@@ -9,8 +9,10 @@ exports.dbConnect = async function() {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
+        // eslint-disable-next-line no-console
         console.log('MongoDB connected...');
     } catch (err) {
+        // eslint-disable-next-line no-console
         console.error('Error connecting to MongoDB:', err.message);
         process.exit(1);
     }

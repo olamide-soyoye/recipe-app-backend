@@ -31,7 +31,7 @@ describe('DELETE /recipes/:id', () => {
     });
 
     it('should return 204 status code and delete the recipe when a valid ID is provided', async () => {
-        const response = await request(app)
+        await request(app)
             .delete(`/recipes/${testRecipeId}`)
             .expect('Content-Type', /json/)
             .expect(204);

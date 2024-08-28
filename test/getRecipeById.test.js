@@ -50,7 +50,7 @@ describe('GET /recipes/:id', () => {
 
     it('should return 404 when the recipe with the given ID does not exist', async () => {
         const invalidId = '888c6c9f2f3b2c001f647a1b';
-        const response = await request(app)
+        await request(app)
             .get(`/recipes/${invalidId}`)
             .expect('Content-Type', /json/)
             .expect(404); 

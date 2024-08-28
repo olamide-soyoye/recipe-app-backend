@@ -12,17 +12,6 @@ describe('GET /recipes', () => {
         await seedTestData();
     });
 
-    afterAll(async () => {
-        // Cleanup: Drop the database and disconnect
-        // try {
-        //     await Recipe.db.connection.db.dropDatabase(); // Drop the database
-        // } catch (error) {
-        //     console.error('Error during cleanup:', error);
-        // } finally {
-        //     await Recipe.db.connection.close(); // Close the connection
-        // }
-    });
-
     it('should return status code 200 and paginated recipes data', async () => {
         const response = await request(app)
             .get('/recipes?page=1&limit=5')

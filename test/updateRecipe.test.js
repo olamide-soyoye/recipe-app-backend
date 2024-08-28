@@ -11,7 +11,6 @@ describe('PUT /recipes/:id', () => {
     let testRecipeId;
 
     beforeAll(async () => {
-        // Create a test recipe
         const recipe = await Recipe.create({
             title: 'Test Recipe 1',
             ingredients: ['Ingredient 1', 'Ingredient 2'],
@@ -21,16 +20,6 @@ describe('PUT /recipes/:id', () => {
         testRecipeId = recipe._id.toString();
     });
 
-    afterAll(async () => {
-        // Cleanup: Drop the database and disconnect
-        // try {
-        //     await Recipe.db.connection.db.dropDatabase(); // Drop the database
-        // } catch (error) {
-        //     console.error('Error during cleanup:', error);
-        // } finally {
-        //     await Recipe.db.connection.close(); // Close the connection
-        // }
-    });
 
     it('should return status code 200 and updated recipe data when a valid ID is provided', async () => {
         const updatedData = {
@@ -58,7 +47,7 @@ describe('PUT /recipes/:id', () => {
 
     it('should return 404 when the recipe with the given ID does not exist', async () => {
         const invalidId = '888c6c9f2f3b2c001f647a1b';
-        const response = await request(app)
+        await request(app)
             .put(`/recipes/${invalidId}`)
             .send({
                 title: 'Some Title',
@@ -68,8 +57,5 @@ describe('PUT /recipes/:id', () => {
             })
             .expect('Content-Type', /json/)
             .expect(404);
-
-        // expect(response.body).toHaveProperty('status', 'failed');
-        // expect(response.body).toHaveProperty('message', 'Recipe not found');
     },10000);
 });
