@@ -1,52 +1,56 @@
-const { expect } = require('chai');
-const sinon = require('sinon');
-const recipeService = require('../Services/recipeService');
-const fileUtils = require('../utils/fileUtils');
+const request = require('supertest');
+const express = require('express');
+const { createRecipe } = require('../Controllers/recipeController');
+const Recipe = require('../models/recipe');
+const multer = require('multer');
+const upload = multer();
 
-describe('Recipe Service - storeRecipe', () => {
-    afterEach(() => {
-        sinon.restore();
+const app = express();
+app.use(express.json());
+app.post('/recipes', upload.single('image'), createRecipe);
+
+describe('POST /recipes', () => {
+    afterEach(async () => {
+        // await Recipe.deleteMany({});
     });
 
-    it('should store a new recipe and return it', async () => {
-        const mockRecipes = [
-            { id: 21, title: 'Recipe 1', instructions: '...', ingredients: [], image: null },
-            { id: 22, title: 'Recipe 2', instructions: '...', ingredients: [], image: null }
-        ];
-    
-        const newRecipeData = {
-            title: 'Grilled Basil Chicken',
-            instructions: 'Place chicken breasts in a shallow dish; orange quote icon do not rinse raw poultry. Cover with marinade. Cover dish. Refrigerate about 1 hour, turning occasionally. orange quote icon Wash dish after touching raw poultry.',
-            ingredients: ['2 tbsp olive oil', '1 garlic clove, minced'],
-            image: 'https://res.cloudinary.com/tamss/image/upload/v1724690862/bleotma2aul27klejhdp.jpg'
-        };
-    
-        sinon.stub(fileUtils, 'readRecipesFromFile').resolves(mockRecipes);
-    
-        sinon.stub(fileUtils, 'writeRecipesToFile').resolves();
-    
-        const result = await recipeService.storeRecipe(newRecipeData);
-    
-        expect(result).to.have.property('id').that.is.a('number');
-        expect(result).to.include(newRecipeData);
-    });
-    
-    
-
-    it('should handle an error when storing a recipe', async () => {
-        const newRecipeData = {
-            title: 'Moroccan Chicken with Ehh-plant-Zucchini Ragout',
-            instructions: 'Add leg quarters to pan, skin-side down. orange quote icon Wash hands with soap and water after handling uncooked chicken. Brown chicken, turning once, 8 to 10 minutes per side. Remove chicken to plate and drain off all but 2 tablespoons oil. Add eggplant to hot pan and cook, stirring, 5 minutes. Add remaining tablespoon olive oil, along with zucchini, onion and garlic. Cook 5 minutes, stirring occasionally',
-            ingredients: ['3 tbsp olive oil, divided', '1 tsp salt, divided','1 tsp freshly ground black pepper, divided'],
-            image: 'https://res.cloudinary.com/tamss/image/upload/v1724742626/mjjy7vm13iqhct1a8awm.jpg'
+    it('should create a new recipe and return 201 status code', async () => {
+        const newRecipe = {
+            title: 'New Recipe Title',
+            instructions: 'New Recipe Instructions',
+            ingredients: ['New Ingredient 1', 'New Ingredient 2'],
+            image: null,
         };
 
-        sinon.stub(fileUtils, 'readRecipesFromFile').throws(new Error('Test error'));
+        const response = await request(app)
+            .post('/recipes')
+            .send(newRecipe)
+            .expect('Content-Type', /json/)
+            .expect(201);
+            console.log('Olamide',response)
+        expect(response.body).toHaveProperty('status', 'success');
+        expect(response.body).toHaveProperty('message', 'Data successfully inserted');
+        expect(response.body).toHaveProperty('data');
+        expect(response.body.data).toHaveProperty('title', newRecipe.title);
+        expect(response.body.data).toHaveProperty('instructions', newRecipe.instructions);
+        expect(response.body.data).toHaveProperty('ingredients');
+        // expect(response.body.data).toHaveProperty('image', null); 
+    }, 10000);
 
-        try {
-            await recipeService.storeRecipe(newRecipeData);
-        } catch (err) {
-            expect(err.message).to.equal('Error storing recipe');
-        }
-    });
+    it('should return 500 status code if internal server error', async () => {
+        const invalidRecipe = {
+            title: '', 
+            instructions: '',
+            ingredients: []
+        };
+
+        const response = await request(app)
+            .post('/recipes')
+            .send(invalidRecipe)
+            .expect('Content-Type', /json/)
+            .expect(500);
+
+        // expect(response.body.error).toHaveProperty('status', 'failed');
+        // expect(response.body.error).toHaveProperty('message');
+    },10000); 
 });

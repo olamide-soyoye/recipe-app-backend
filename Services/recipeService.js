@@ -1,9 +1,10 @@
-const { readRecipesFromFile, writeRecipesToFile } = require('../utils/fileUtils');
+const { readRecipesFromDb, writeRecipesToDb, updateRecipe, deleteRecipe} = require('../utils/fileUtils');
+const { ObjectId } = require('mongodb');
 
 // Helper function to get the latest recipes from the file
-const getRecipesFromFile = async () => {
+const getRecipesFromDb = async () => {
     try {
-        const recipes = await readRecipesFromFile();
+        const recipes = await readRecipesFromDb();
         return recipes;
     } catch (err) {
         throw new Error('Error reading recipes from file');
@@ -13,7 +14,7 @@ const getRecipesFromFile = async () => {
 // Fetch paginated list of recipes
 exports.fetchRecipes = async (pageNumber, pageSize) => {
     try {
-        const recipes = await getRecipesFromFile();
+        const recipes = await getRecipesFromDb();
         const totalRecipes = recipes.length;
         const totalPages = Math.ceil(totalRecipes / pageSize);
         const startIndex = (pageNumber - 1) * pageSize;
@@ -44,52 +45,59 @@ exports.fetchRecipes = async (pageNumber, pageSize) => {
 // Fetch details of a single recipe
 exports.fetchRecipeById = async (id) => {
     try {
-        const recipes = await getRecipesFromFile();
-        const recipe = recipes.find(r => r.id === parseInt(id, 10));
+        const objectId = new ObjectId(id);
+
+        const recipes = await getRecipesFromDb();
+        const recipe = recipes.find(r => r._id.equals(objectId));
         return recipe || null;
     } catch (err) {
-        throw new Error('Error fetching recipe by ID');
+        throw new Error('Error fetching recipe by ID: ' + err.message);
     }
 };
+
 
 // Create a new recipe
 exports.storeRecipe = async (recipeData) => {
     try {
         const { title, instructions, ingredients, image } = recipeData;
-        const recipes = await readRecipesFromFile();
         const newRecipe = {
-            id: recipes.length ? recipes[recipes.length - 1].id + 1 : 1,
             title,
             instructions,
             ingredients,
             image: image || null
         };
-        recipes.push(newRecipe);
-        await writeRecipesToFile(recipes);
-        return newRecipe;
+        const createdRecipe = await writeRecipesToDb(newRecipe);
+        return createdRecipe;
     } catch (err) {
-        throw new Error('Error storing recipe');
+        throw new Error(`Error storing recipe: ${err.message}`);
     }
 };
 
 // Update an existing recipe
 exports.editRecipe = async (id, updateData) => {
     try {
-        const recipes = await readRecipesFromFile();
-        const recipeIndex = recipes.findIndex(r => r.id === id);
-        if (recipeIndex !== -1) {
-            const recipe = recipes[recipeIndex];
-            const updatedRecipe = {
-                ...recipe,
-                ...updateData
-            };
-            recipes[recipeIndex] = updatedRecipe;
-            await writeRecipesToFile(recipes);
-            return updatedRecipe;
-        } else {
+        const updatedRecipe = await updateRecipe(id, updateData)
+
+        if (!updatedRecipe) {
             return null;
         }
+
+        return updatedRecipe;
     } catch (err) {
         throw new Error('Error updating recipe');
+    }
+};
+
+exports.deleteRecipe = async (id) => {
+    try {
+        const deleted = await deleteRecipe(id)
+
+        if (!deleted) {
+            return null;
+        }
+
+        return deleted;
+    } catch (err) {
+        throw new Error('Error deleting recipe');
     }
 };

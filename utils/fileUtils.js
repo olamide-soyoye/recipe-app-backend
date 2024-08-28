@@ -1,24 +1,46 @@
-const fs = require('fs').promises;
-const path = require('path');
+const Recipe = require('../models/recipe');
 
-const recipesFilePath = path.resolve(__dirname, '../data/recipes.json');
-
-const readRecipesFromFile = async () => {
+const readRecipesFromDb = async () => {
     try {
-        const data = await fs.readFile(recipesFilePath, 'utf8');
-        return JSON.parse(data);
+        const data = await Recipe.find();
+        return data; 
     } catch (err) {
         throw new Error('Error reading recipes from file');
     }
 };
 
 
-const writeRecipesToFile = async (recipes) => {
+const writeRecipesToDb = async (recipe) => {
     try {
-        await fs.writeFile(recipesFilePath, JSON.stringify(recipes, null, 2), 'utf8');
+        const newRecipe = new Recipe(recipe);
+        await newRecipe.save();
+        return newRecipe;
     } catch (err) {
-        throw new Error('Error writing recipes to file');
+        throw new Error(`Error writing recipe to database: ${err.message}`);
     }
 };
 
-module.exports = { readRecipesFromFile, writeRecipesToFile };
+
+const updateRecipe = async (recipeId, updateData) => {
+    try {
+        const updatedRecipe = await Recipe.findByIdAndUpdate(
+            recipeId,
+            { $set: updateData },
+            { new: true, runValidators: true } 
+        ); 
+        return updatedRecipe;
+    } catch (err) {
+        throw new Error(`Error writing recipes to file: ${err.message}`);
+    }
+};
+
+const deleteRecipe = async (recipeId) => {
+    try {
+        const deletedRecipe = await Recipe.findByIdAndDelete(recipeId); 
+        return deletedRecipe;
+    } catch (err) {
+        throw new Error(`Error deleting recipe: ${err.message}`);
+    }
+};
+
+module.exports = { readRecipesFromDb, writeRecipesToDb, updateRecipe, deleteRecipe };

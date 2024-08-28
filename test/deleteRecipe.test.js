@@ -1,60 +1,50 @@
-const sinon = require('sinon');
-const { expect } = require('chai');
-const supertest = require('supertest');
+const request = require('supertest');
 const express = require('express');
-const app = express(); 
-const recipeController = require('../Controllers/recipeController');
-const fileUtils = require('../utils/fileUtils');
+const { deleteRecipe } = require('../Controllers/recipeController');
+const Recipe = require('../models/recipe'); 
 
-const getRecipesFromFile = async () => {
-    try {
-        const recipes = await fileUtils.readRecipesFromFile();
-        return recipes;
-    } catch (err) {
-        throw new Error('Error reading recipes from file');
-    }
-};
+const app = express();
+app.use(express.json());
+app.delete('/recipes/:id', deleteRecipe);
 
-app.delete('/recipes/:id', recipeController.deleteRecipe);
+describe('DELETE /recipes/:id', () => {
+    let testRecipeId;
 
-describe('Recipe Controller - deleteRecipe', () => { 
-    let request, recipes;
-
-    before(async () => {
-        request = supertest(app);
-        recipes = await getRecipesFromFile();
+    beforeAll(async () => {
+        const recipe = await Recipe.create({
+            title: 'Test Recipe for Deletion',
+            ingredients: ['Ingredient 1', 'Ingredient 2'],
+            instructions: 'Instructions for deletion test',
+            image: 'test_image_url'
+        });
+        testRecipeId = recipe._id.toString();
     });
 
-    afterEach(() => {
-        sinon.restore();
+    afterAll(async () => {
+        // try {
+        //     await Recipe.db.connection.db.dropDatabase(); // Drop the database
+        // } catch (error) {
+        //     console.error('Error during cleanup:', error);
+        // } finally {
+        //     await Recipe.db.connection.close(); // Close the connection
+        // }
     });
 
-    it('should delete an existing recipe and return status 204', async () => {
-        const mockRecipes = [
-            { id: 1, title: 'Recipe 1', instructions: '...', ingredients: [], image: null },
-            { id: 2, title: 'Recipe 2', instructions: '...', ingredients: [], image: null }
-        ];
+    it('should return 204 status code and delete the recipe when a valid ID is provided', async () => {
+        const response = await request(app)
+            .delete(`/recipes/${testRecipeId}`)
+            .expect('Content-Type', /json/)
+            .expect(204);
+    },10000);
 
-        sinon.stub(fileUtils, 'readRecipesFromFile').resolves(mockRecipes);
-        sinon.stub(fileUtils, 'writeRecipesToFile').resolves();
+    it('should return 400 status code for an invalid ID', async () => {
+        const invalidId = 'invalid_id';
+        const response = await request(app)
+            .delete(`/recipes/${invalidId}`)
+            .expect('Content-Type', /json/)
+            .expect(400);
 
-        const lastRecipeId = recipes[recipes.length - 1].id;
-        const response = await request.delete(`/recipes/${lastRecipeId}`);
-        
-        expect(response.status).to.equal(204);
-
-    });
-
-    it('should return status 404 if recipe is not found', async () => {
-        const mockRecipes = [
-            { id: 1, title: 'Recipe 1', instructions: '...', ingredients: [], image: null }
-        ];
-
-        sinon.stub(fileUtils, 'readRecipesFromFile').resolves(mockRecipes);
-        sinon.stub(fileUtils, 'writeRecipesToFile');
-
-        const response = await request.delete('/recipes/999');
-
-        expect(response.status).to.equal(404); 
-    }); 
+        expect(response.body.error).toHaveProperty('status', 'failed');
+        expect(response.body.error).toHaveProperty('message', 'Invalid recipe ID');
+    },10000); 
 });

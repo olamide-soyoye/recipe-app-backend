@@ -1,6 +1,6 @@
+const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
-const { readRecipesFromFile, writeRecipesToFile } = require('../utils/fileUtils');
-const { fetchRecipes, fetchRecipeById, storeRecipe, editRecipe } = require('../Services/recipeService');
+const { fetchRecipes, fetchRecipeById, storeRecipe, editRecipe, deleteRecipe } = require('../Services/recipeService');
 const HttpHandler = require('../HttpHandler/responseHandler');
 
 
@@ -69,7 +69,7 @@ exports.createRecipe = async (req, res) => {
 
     try {
         const { title, instructions, ingredients } = req.body;
-        const image = req.file ? req.file.path : null;
+        const image = req?.file ? req.file.path : null;
         const newRecipe = await storeRecipe({ title, instructions, ingredients, image });
         handler.sendJson({ 
             status: 'success', 
@@ -92,7 +92,7 @@ exports.updateRecipe = async (req, res) => {
     }
 
     try {
-        const recipeId = parseInt(req.params.id);
+        const recipeId = req.params.id;
         const { title, instructions, ingredients, image } = req.body;
         
         let imagePath = null;
@@ -102,7 +102,6 @@ exports.updateRecipe = async (req, res) => {
         } else if (image) {
             imagePath = image;
         }
-        
         const updatedRecipe = await editRecipe(recipeId, { title, instructions, ingredients, image: imagePath });
         
         if (updatedRecipe) {
@@ -125,25 +124,23 @@ exports.deleteRecipe = async (req, res) => {
     const handler = new HttpHandler(res);
 
     try {
-        const index = parseInt(req.params.id);
+        const id = req.params.id;
 
-        if (!Number.isInteger(index)) {
-            handler.sendError({ status: 'failed', message: 'Invalid recipe ID'},400);
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return handler.sendError({ status: 'failed', message: 'Invalid recipe ID' }, 400);
         }
-        
-        const recipes = await readRecipesFromFile();
-        const recipeIndex = recipes.findIndex(r => r.id === index);
-        if (recipeIndex !== -1) {
-            recipes.splice(recipeIndex, 1);
-            await writeRecipesToFile(recipes);
+
+        const result = await deleteRecipe(id);
+
+        if (result) {
             handler.sendJson({ 
                 status: 'success', 
                 message: 'Deleted successfully'
             }, 204);
         } else {
-            handler.sendError({ status: 'failed', message: 'Recipe not found'},404);
+            handler.sendError({ status: 'failed', message: 'Recipe not found' }, 404);
         }
     } catch (err) {
-        handler.sendError({status: 'failed', message: err.message});
+        handler.sendError({ status: 'failed', message: err.message });
     }
 };
